@@ -1,76 +1,49 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-
 # Create your models here.
-# User, Channel, Video, Comment, Like, Dislike
+
+STATUS = {
+    'student':'student',
+    'teacher':'teacher'
+}
 
 class User(AbstractUser):
-    bio = models.TextField(max_length=500, blank=True)
-    profile_picture = models.URLField()
-    phone_number = models.CharField(max_length=15)
+    bio = models.TextField(max_length=300, blank=True)
+    profile_picture = models.URLField(blank=True)
+    phone_number = models.CharField(max_length=15, blank=True)
+    status = models.CharField(max_length=300,choices = STATUS ,null=True)
 
     def __str__(self):
         return self.username
 
-
-class Channel(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=50)
-    description = models.TextField(max_length=500)
-    subscribers = models.ManyToManyField(User, related_name='subscribers')
-
-    def __str__(self):
-        return self.name
-
-    def count_subscribers(self):
-        return self.subscribers.count()
-
-
-class Video(models.Model):
-    channel = models.ForeignKey(Channel, on_delete=models.CASCADE)
+class Course(models.Model):
     title = models.CharField(max_length=100)
-    description = models.TextField(max_length=500)
-    video_url = models.URLField(null=True)
-    video_file = models.FileField(upload_to='videos/', null=True)
-
+    description = models.TextField()
+    price = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
 
-
-class Comment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    video = models.ForeignKey(Video, on_delete=models.CASCADE)
-    text = models.TextField(max_length=500)
+class Lesson(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='lessons')
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    order = models.PositiveIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.user.username} - {self.video.title}"
+        return f"{self.order}. {self.title} - {self.course.title}"
 
-
-STATUS = (
-    ('like', 'like'),
-    ('dislike', 'dislike')
-)
-
-
-class VideoLike(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    video = models.ForeignKey(Video, on_delete=models.CASCADE)
-    status = models.CharField(max_length=10, choices=STATUS)
-    created_at = models.DateTimeField(auto_now_add=True)
+class Enrollment(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='enrollments')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='enrollments')
+    enrollment_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.user.username} - {self.video.title}"
+        return f"{self.user.username} enrolled in {self.course.title}"
 
 
-class CommentLike(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
-    status = models.CharField(max_length=10, choices=STATUS)
-    created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return f"{self.user.username} - {self.comment.text}"
+

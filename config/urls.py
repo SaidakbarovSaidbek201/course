@@ -38,4 +38,13 @@ urlpatterns = [
     path('api/v1/', include('apps.urls')),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 
+    # DRF login va logout sahifasi
+    path('api/v1/auth/', include('rest_framework.urls')),
+    # Token orqali autentifikatsiya qilish
+    path('api/v1/dj-rest-auth/', include('dj_rest_auth.urls')),
+    # Ro‘yxatdan o‘tish
+    path('api/v1/dj-rest-auth/registration/', 
+    include('dj_rest_auth.registration.urls')),
+
+
 ]

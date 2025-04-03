@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User, Channel, Video, Comment, VideoLike, CommentLike
+from .models import User, Course, Lesson, Enrollment
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -15,28 +15,19 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 
-class ChannelSerializer(serializers.ModelSerializer):
+class CourseSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Channel
+        model = Course
         fields = '__all__'
 
 
-class VideoSerializer(serializers.ModelSerializer):
+class LessonSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Video
+        model = Lesson
         fields = '__all__'
 
-class CommentSerializer(serializers.ModelSerializer):
+class EnrollmentSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Comment
+        model = Enrollment
         fields = '__all__'
     
-class VideoLikeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = VideoLike
-        fields = '__all__'
-
-class CommentLikeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CommentLike
-        fields = '__all__'

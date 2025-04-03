@@ -1,10 +1,27 @@
 from django.shortcuts import render
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 # Create your views here.
-from .models import User, Video, Channel, Video, Comment, CommentLike, VideoLike
-from .serializers import UserSerializer, VideoSerializer, ChannelSerializer, CommentSerializer, CommentLikeSerializer, VideoLikeSerializer
+from .models import User,  Course, Lesson, Enrollment
+from .serializers import UserSerializer, CourseSerializer, LessonSerializer, EnrollmentSerializer
 from rest_framework.viewsets import ViewSet, ModelViewSet
 
+class UserModelViewSet(ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+class CourseModelViewSet(ModelViewSet):
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
+
+
+class LessonModelViewSet(ModelViewSet):
+    queryset = Lesson.objects.all()
+    serializer_class = LessonSerializer
+
+
+class EnrollmentModelViewSet(ModelViewSet):
+    queryset = Enrollment.objects.all()
+    serializer_class = EnrollmentSerializer
 
 # class UserListCreateAPIView(ListCreateAPIView):
 #     queryset = User.objects.all()
@@ -14,10 +31,6 @@ from rest_framework.viewsets import ViewSet, ModelViewSet
 # class UserDetailAPIView(RetrieveUpdateDestroyAPIView):
 #     queryset = User.objects.all()
 #     serializer_class = User
-
-class UserModelViewSet(ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
 
 
 # class VideoListCreateAPIView(ListCreateAPIView):
@@ -29,9 +42,6 @@ class UserModelViewSet(ModelViewSet):
 #     queryset = Video.objects.all()
 #     serializer_class = VideoSerializer
 
-class VideoModelViewSet(ModelViewSet):
-    queryset = Video.objects.all()
-    serializer_class = VideoSerializer
 
 
 # class ChannelListCreateAPIView(ListCreateAPIView):
@@ -44,24 +54,6 @@ class VideoModelViewSet(ModelViewSet):
 #     serializer_class = ChannelSerializer
 
 
-class ChannelModelViewSet(ModelViewSet):
-    queryset = Channel.objects.all()
-    serializer_class = ChannelSerializer
-
-
-class VideoLikeModelViewSet(ModelViewSet):
-    queryset = VideoLike.objects.all()
-    serializer_class = VideoLikeSerializer
-
-class CommentModelViewSet(ModelViewSet):
-    queryset = Comment.objects.all()
-    serializer_class = CommentSerializer
-
-
-
-class CommentLikelModelViewSet(ModelViewSet):
-    queryset = CommentLike.objects.all()
-    serializer_class = CommentLikeSerializer
 
 
 

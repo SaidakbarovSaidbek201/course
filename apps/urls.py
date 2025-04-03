@@ -1,15 +1,14 @@
 # from .views import UserListCreateAPIView, UserDetailAPIView, VideoListCreateAPIView, VideoDetailAPIView, ChannelListCreateAPIView, ChannelDetailAPIView
 from django.urls import path, include
-from .views import UserModelViewSet, VideoModelViewSet, ChannelModelViewSet, CommentModelViewSet, CommentLikelModelViewSet, VideoLikeModelViewSet
+from .views import UserModelViewSet, CourseModelViewSet, LessonModelViewSet, EnrollmentModelViewSet
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 router.register(r'users', UserModelViewSet)  # Avtomatik CRUD marshrutlar
-router.register(r'videos', VideoModelViewSet)
-router.register(r'channels', ChannelModelViewSet)
-router.register(r'comment', CommentModelViewSet)
-router.register(r'comment_like', CommentLikelModelViewSet)
-router.register(r'videos_like', VideoLikeModelViewSet)
+router.register(r'courses', CourseModelViewSet)
+router.register(r'lessons', LessonModelViewSet)
+router.register(r'enrollment', EnrollmentModelViewSet)
+
 
 urlpatterns = [
     # path('users/', UserListCreateAPIView.as_view(), name='user_list'),
