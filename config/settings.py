@@ -46,8 +46,13 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'dj_rest_auth.registration', # Ro‘yxatdan o‘tish
+<<<<<<< HEAD
     'drf_yasg',
     'apps',
+=======
+
+    'apps'
+>>>>>>> fc8291615c9d0af2282e549a2db4da98cf2cf86e
 ]
 
 REST_FRAMEWORK = {
