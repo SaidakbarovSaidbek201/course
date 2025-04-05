@@ -3,12 +3,13 @@ from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 
-STATUS = {
-    'student':'student',
-    'teacher':'teacher'
-}
-
 class User(AbstractUser):
+
+    STATUS = {
+        'student':'student',
+        'teacher':'teacher'
+    }
+    
     bio = models.TextField(max_length=300, blank=True)
     profile_picture = models.URLField(blank=True)
     phone_number = models.CharField(max_length=15, blank=True)
